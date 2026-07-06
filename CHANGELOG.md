@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.0](https://github.com/jpshackelford/oh-markdown-tool/compare/v0.1.0...v1.0.0) (2026-07-06)
+## [0.2.0](https://github.com/jpshackelford/oh-markdown-tool/compare/v0.1.0...v0.2.0) (2026-07-06)
 
 
 ### ⚠ BREAKING CHANGES
