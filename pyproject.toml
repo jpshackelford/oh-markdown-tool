@@ -3,7 +3,7 @@ name = "oh-markdown-tool"
 version = "0.1.0"
 description = "OpenHands Markdown Document Tool - Structural editing and formatting for markdown documents"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 license = {text = "MIT"}
 authors = [
     {name = "JP Shackelford"}
