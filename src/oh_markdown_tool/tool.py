@@ -6,15 +6,22 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import TYPE_CHECKING, Literal
 
-from openhands.sdk.tool import (
-    Action,
-    Observation,
-    ToolAnnotations,
-    ToolDefinition,
-    ToolExecutor,
-)
-from pydantic import Field
-from rich.text import Text
+try:
+    from openhands.sdk.tool import (
+        Action,
+        Observation,
+        ToolAnnotations,
+        ToolDefinition,
+        ToolExecutor,
+        register_tool,
+    )
+    from pydantic import Field
+    from rich.text import Text
+except ModuleNotFoundError as exc:  # pragma: no cover
+    raise ModuleNotFoundError(
+        "The OpenHands tool integration requires extra dependencies. "
+        "Install them with: pip install 'oh-markdown-tool[openhands]'"
+    ) from exc
 
 from .formatter import MarkdownFormatter
 from .numbering import SectionNumberer
@@ -954,3 +961,9 @@ class MarkdownDocumentTool(ToolDefinition[MarkdownAction, MarkdownObservation]):
                 executor=executor,
             )
         ]
+
+
+# Registering the tool on import is the side effect the agent-server relies on when it
+# loads this module via ``tool_module_qualnames`` (qualname: ``oh_markdown_tool.tool``).
+# Registered under the tool's own name so ``agent.tools`` and the registry key match.
+register_tool(MarkdownDocumentTool.name, MarkdownDocumentTool)

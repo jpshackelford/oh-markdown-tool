@@ -35,21 +35,28 @@ This tool provides AI agents with powerful markdown document manipulation capabi
 
 ## Installation
 
-```bash
-pip install oh-markdown-tool
-```
-
-Or with `uv`:
+The core library (markdown parsing, numbering, TOC, formatting) has no dependency on
+the OpenHands SDK:
 
 ```bash
-uv pip install oh-markdown-tool
+pip install oh-markdown-tool          # or: uv pip install oh-markdown-tool
 ```
 
-## Usage with OpenHands SDK
+To use it as an OpenHands agent tool, install the `openhands` extra. It pulls in
+`openhands-sdk`, which requires **Python 3.12+**:
+
+```bash
+pip install "oh-markdown-tool[openhands]"
+```
+
+## Usage as an OpenHands agent tool
+
+The tool lives in `oh_markdown_tool.tool`; importing that module registers it under the
+name `markdown_document`.
 
 ```python
 from openhands.sdk import Agent
-from oh_markdown_tool import MarkdownDocumentTool
+from oh_markdown_tool.tool import MarkdownDocumentTool
 
 # Create an agent with the markdown tool
 agent = Agent(
@@ -64,16 +71,22 @@ agent = Agent(
 # - "Move section 4.3 to after section 2"
 ```
 
-## Standalone Usage
+On a **remote agent-server**, reference the tool by its module qualname so the server
+imports and registers it on conversation creation:
 
-The tool can also be used directly in Python:
+```python
+"tools": [{"name": "markdown_document"}],
+"tool_module_qualnames": {"markdown_document": "oh_markdown_tool.tool"},
+```
+
+## Standalone usage (no agent)
+
+`MarkdownExecutor` runs the operations directly. It lives in `oh_markdown_tool.tool` and
+therefore needs the `[openhands]` extra (the action/observation types build on the SDK):
 
 ```python
 from pathlib import Path
-from oh_markdown_tool import (
-    MarkdownAction,
-    MarkdownExecutor,
-)
+from oh_markdown_tool.tool import MarkdownAction, MarkdownExecutor
 
 # Initialize executor with workspace directory
 executor = MarkdownExecutor(workspace_dir=Path("."))
@@ -92,6 +105,13 @@ print(f"Renumbered {result.sections_renumbered} sections")
 action = MarkdownAction(command="toc_update", file="design.md", depth=3)
 result = executor.execute(action)
 print(f"TOC updated with {result.toc_entries} entries")
+```
+
+For SDK-free, lower-level access, import the core classes directly (no `[openhands]`
+extra needed):
+
+```python
+from oh_markdown_tool import MarkdownParser, SectionNumberer, TocManager
 ```
 
 ## Document Conventions

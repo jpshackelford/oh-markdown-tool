@@ -1,7 +1,8 @@
 """Basic usage example for the oh-markdown-tool."""
 
 from pathlib import Path
-from oh_markdown_tool import MarkdownAction, MarkdownExecutor
+
+from oh_markdown_tool.tool import MarkdownAction, MarkdownExecutor
 
 
 def main():
@@ -35,7 +36,7 @@ The results section.
     doc_path.write_text(sample_doc)
 
     # Initialize executor with current directory
-    executor = MarkdownExecutor(workspace_dir=Path("."))
+    executor = MarkdownExecutor(workspace_dir=Path())
 
     # 1. Get document overview
     print("=" * 60)
