@@ -15,19 +15,26 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Documentation",
     "Topic :: Text Processing :: Markup",
 ]
 
+# Core library dependencies. These are all the standalone markdown library needs;
+# it has no dependency on openhands-sdk or pydantic.
 dependencies = [
-    "openhands-sdk>=1.19.0",
-    "pydantic>=2.0.0",
     "mdformat>=0.7",
     "pymarkdownlnt>=0.9",
-    "rich>=13.0.0",
 ]
 
 [project.optional-dependencies]
+# The OpenHands agent tool integration (oh_markdown_tool.tool). openhands-sdk 1.31.0
+# requires Python >=3.12, so this extra is only installable there.
+openhands = [
+    "openhands-sdk~=1.31.0",
+    "pydantic>=2.0.0",
+    "rich>=13.0.0",
+]
 dev = [
     "pytest>=8.0.0",
     "pytest-cov>=4.1.0",

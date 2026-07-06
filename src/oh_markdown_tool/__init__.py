@@ -11,7 +11,11 @@ from .toc import (
     TocUpdateResult,
     TocValidationResult,
 )
-from .tool import MarkdownAction, MarkdownDocumentTool, MarkdownExecutor, MarkdownObservation
+
+# The OpenHands tool integration lives in ``oh_markdown_tool.tool`` and is imported
+# separately (see ``pip install "oh-markdown-tool[openhands]"``). It is intentionally
+# NOT imported here so the core library has no dependency on ``openhands-sdk`` and
+# importing this package triggers no tool-registration side effects.
 
 __all__ = [
     "__version__",
@@ -22,10 +26,6 @@ __all__ = [
     "NumberingIssue",
     "RenumberResult",
     "ValidationResult",
-    "MarkdownDocumentTool",
-    "MarkdownAction",
-    "MarkdownObservation",
-    "MarkdownExecutor",
     "TocAction",
     "TocManager",
     "TocUpdateResult",
