@@ -221,6 +221,26 @@ Originally developed as part of the [lxa](https://github.com/jpshackelford/lxa) 
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+### Commit Messages
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) and [Release Please](https://github.com/googleapis/release-please) for automated releases. Please use the following commit message format:
+
+```bash
+feat: add new feature       # New features (minor version bump)
+fix: correct bug            # Bug fixes (patch version bump)
+docs: update documentation  # Documentation changes
+refactor: improve code      # Code refactoring
+test: add tests            # Test changes
+chore: update dependencies  # Maintenance tasks
+```
+
+Breaking changes should include `!` or `BREAKING CHANGE:` in the footer:
+```bash
+feat!: redesign API
+```
+
+See [PUBLISHING.md](PUBLISHING.md) for details on the release process.
+
 ### Automated Code Review
 
 This repository uses [OpenHands](https://github.com/All-Hands-AI/OpenHands) for automated PR reviews. When you open a PR:

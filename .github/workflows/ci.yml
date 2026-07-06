@@ -12,6 +12,11 @@ concurrency:
 jobs:
   lint:
     name: Lint
+    # Skip CI on Release Please PRs (only version bumps, already tested)
+    if: |
+      github.event_name == 'push' ||
+      (github.event.pull_request.user.login != 'github-actions[bot]' &&
+       !startsWith(github.event.pull_request.head.ref, 'release-please--'))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -38,6 +43,11 @@ jobs:
 
   test:
     name: Test
+    # Skip CI on Release Please PRs (only version bumps, already tested)
+    if: |
+      github.event_name == 'push' ||
+      (github.event.pull_request.user.login != 'github-actions[bot]' &&
+       !startsWith(github.event.pull_request.head.ref, 'release-please--'))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -95,9 +105,14 @@ jobs:
     steps:
       - name: Check all jobs passed
         run: |
-          if [[ "${{ needs.lint.result }}" != "success" ]] || \
-             [[ "${{ needs.test.result }}" != "success" ]]; then
+          # Accept both "success" and "skipped" (Release Please PRs skip CI)
+          lint_ok=$([[ "${{ needs.lint.result }}" == "success" || "${{ needs.lint.result }}" == "skipped" ]] && echo "true" || echo "false")
+          test_ok=$([[ "${{ needs.test.result }}" == "success" || "${{ needs.test.result }}" == "skipped" ]] && echo "true" || echo "false")
+          
+          if [[ "$lint_ok" == "false" ]] || [[ "$test_ok" == "false" ]]; then
             echo "One or more jobs failed"
+            echo "Lint: ${{ needs.lint.result }}"
+            echo "Test: ${{ needs.test.result }}"
             exit 1
           fi
           echo "All checks passed! ✅"
