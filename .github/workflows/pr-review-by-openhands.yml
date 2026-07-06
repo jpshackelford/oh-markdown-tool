@@ -40,4 +40,4 @@ jobs:
           llm-model: anthropic/claude-sonnet-4-20250514
           review-style: roasted
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          llm-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          llm-api-key: ${{ secrets.LLM_API_KEY }}
