@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.1](https://github.com/jpshackelford/oh-markdown-tool/compare/v0.2.0...v0.2.1) (2026-07-06)
+
+
+### Bug Fixes
+
+* make CI workflow not run at all on Release Please PRs ([ba25dc7](https://github.com/jpshackelford/oh-markdown-tool/commit/ba25dc7c0724deb38a36caa6dfe3415da5fa9361))
+* remove build/publish from release-please, delegate to release.yml ([c6a5569](https://github.com/jpshackelford/oh-markdown-tool/commit/c6a5569f02e0e523135176103d5f2d7c576b71b3))
+* return non-empty tool observations to prevent SDK IndexError ([4618bdc](https://github.com/jpshackelford/oh-markdown-tool/commit/4618bdc553907de39b8c8b8076b200a4f5978eb3)), closes [#14](https://github.com/jpshackelford/oh-markdown-tool/issues/14)
+* use shields.io badges for PyPI instead of badge.fury.io ([b312a33](https://github.com/jpshackelford/oh-markdown-tool/commit/b312a33dcc01d20a2055203fb3ff30aaab4bd8f6))
+
 ## [0.2.0](https://github.com/jpshackelford/oh-markdown-tool/compare/v0.1.0...v0.2.0) (2026-07-06)
 
 
