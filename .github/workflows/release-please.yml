@@ -27,4 +27,15 @@ jobs:
           echo "Tag name: ${{ steps.release.outputs.tag_name }}"
           echo "Version: ${{ steps.release.outputs.version }}"
           echo ""
-          echo "The release.yml workflow will now build and publish to PyPI."
+          echo "Triggering release.yml workflow to build and publish to PyPI..."
+      
+      # Trigger the release workflow to build and publish
+      # (GitHub Actions doesn't auto-trigger release workflows when created by bots)
+      - name: Trigger release workflow
+        if: steps.release.outputs.release_created
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run release.yml \
+            --repo ${{ github.repository }} \
+            --ref ${{ steps.release.outputs.tag_name }}
