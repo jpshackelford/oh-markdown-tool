@@ -3,6 +3,14 @@
 import tempfile
 from pathlib import Path
 
+import pytest
+
+# Skip all tests in this module if openhands extra is not installed
+pytest.importorskip(
+    "openhands_sdk",
+    reason="openhands-sdk not installed (requires [openhands] extra)",
+)
+
 from oh_markdown_tool.tool import MarkdownAction, MarkdownExecutor, MarkdownObservation
 
 
