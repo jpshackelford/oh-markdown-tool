@@ -1,6 +1,6 @@
 """Markdown document tool for structural editing and formatting."""
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 from .numbering import NumberingIssue, RenumberResult, SectionNumberer, ValidationResult
 from .parser import MarkdownParser, ParseResult, Section
