@@ -21,12 +21,11 @@ class NumberingIssue:
         """Generate a descriptive message for this issue."""
         if self.issue_type == "missing_number":
             return f"Section '{self.section_title}' is missing a number (expected: {self.expected})"
-        elif self.issue_type == "wrong_number":
+        if self.issue_type == "wrong_number":
             return f"Section '{self.section_title}' has wrong number '{self.actual}' (expected: {self.expected})"
-        elif self.issue_type == "invalid_format":
+        if self.issue_type == "invalid_format":
             return f"Section '{self.section_title}' has invalid number format '{self.actual}'"
-        else:
-            return f"Section '{self.section_title}' has numbering issue: {self.issue_type}"
+        return f"Section '{self.section_title}' has numbering issue: {self.issue_type}"
 
 
 @dataclass
@@ -201,8 +200,7 @@ class SectionNumberer:
         if section.number:
             if section.level == 2:
                 return f"{hashes} {section.number}. {section.title}"
-            else:
-                return f"{hashes} {section.number} {section.title}"
+            return f"{hashes} {section.number} {section.title}"
         return f"{hashes} {section.title}"
 
     def _reconstruct_document(self, content: str, sections: list[Section]) -> str:

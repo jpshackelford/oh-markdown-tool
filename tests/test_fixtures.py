@@ -82,7 +82,7 @@ def run_command(command: str, content: str, params: dict) -> str:
             raise ValueError(result.error)
         return result.content or ""
 
-    elif command == "insert":
+    if command == "insert":
         # Default level to 2 if not specified
         level = params.get("level", 2)
         result = ops.insert(content, params["heading"], level, params["position"], params["target"])
@@ -90,34 +90,33 @@ def run_command(command: str, content: str, params: dict) -> str:
             raise ValueError(result.error)
         return result.content or ""
 
-    elif command == "delete":
+    if command == "delete":
         result = ops.delete(content, params["section"])
         if not result.success:
             raise ValueError(result.error)
         return result.content or ""
 
-    elif command == "promote":
+    if command == "promote":
         result = ops.promote(content, params["section"])
         if not result.success:
             raise ValueError(result.error)
         return result.content or ""
 
-    elif command == "demote":
+    if command == "demote":
         result = ops.demote(content, params["section"])
         if not result.success:
             raise ValueError(result.error)
         return result.content or ""
 
-    elif command == "toc":
+    if command == "toc":
         toc_mgr = TocManager()
         if params.get("action") == "remove":
             result = toc_mgr.remove(content)
             return result.content
-        else:
-            result = toc_mgr.update(content)
-            return result.content
+        result = toc_mgr.update(content)
+        return result.content
 
-    elif command == "renumber":
+    if command == "renumber":
         numberer = SectionNumberer()
         parse_result = parser.parse_content(content)
         # renumber modifies sections in place
@@ -141,18 +140,18 @@ def run_command(command: str, content: str, params: dict) -> str:
                     lines[section.start_line] = new_heading
         return "\n".join(lines)
 
-    elif command == "rewrap":
+    if command == "rewrap":
         formatter = MarkdownFormatter()
         width = params.get("width", 80)
         result = formatter.rewrap(content, width)
         return result.content
 
-    elif command == "fix":
+    if command == "fix":
         formatter = MarkdownFormatter()
         result = formatter.fix(content)
         return result.content
 
-    elif command == "cleanup":
+    if command == "cleanup":
         # Cleanup: rewrap + fix + renumber + toc update (if exists)
         formatter = MarkdownFormatter()
         numberer = SectionNumberer()
@@ -199,8 +198,7 @@ def run_command(command: str, content: str, params: dict) -> str:
 
         return current
 
-    else:
-        raise ValueError(f"Unknown command: {command}")
+    raise ValueError(f"Unknown command: {command}")
 
 
 @pytest.mark.parametrize(

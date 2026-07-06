@@ -125,8 +125,7 @@ class SectionOperations:
             # Level 2 sections get a period, level 3+ don't
             if level == 2:
                 return f"{hashes} {number}. {title}"
-            else:
-                return f"{hashes} {number} {title}"
+            return f"{hashes} {number} {title}"
         return f"{hashes} {title}"
 
     def move(
