@@ -36,5 +36,5 @@ jobs:
         uses: OpenHands/extensions/plugins/pr-review@main
         with:
           llm-model: anthropic/claude-sonnet-4-20250514
-          review-style: constructive
+          review-style: roasted
           github-token: ${{ secrets.GITHUB_TOKEN }}

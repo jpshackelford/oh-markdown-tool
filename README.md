@@ -204,11 +204,11 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ### Automated Code Review
 
 This repository uses [OpenHands](https://github.com/All-Hands-AI/OpenHands) for automated PR reviews. When you open a PR:
-- ✅ Automated review with constructive feedback
-- ✅ Code quality suggestions
-- ✅ Best practices recommendations
+- ✅ Automated review with direct, honest feedback 🔥
+- ✅ Code quality critique
+- ✅ Best practices enforcement
 
-See [.github/OPENHANDS_REVIEW.md](.github/OPENHANDS_REVIEW.md) for details.
+Reviews are **roasted** style - expect critical, no-nonsense feedback. See [.github/OPENHANDS_REVIEW.md](.github/OPENHANDS_REVIEW.md) for details.
 
 ### Development Guidelines
 

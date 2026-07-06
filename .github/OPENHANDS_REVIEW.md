@@ -45,12 +45,14 @@ To re-run the review after making changes:
 
 ## Review Style
 
-The bot provides **constructive** feedback focusing on:
+The bot provides **roasted** feedback 🔥 - critical and direct - focusing on:
 - Code quality and best practices
 - Potential bugs or issues
-- Suggestions for improvement
+- What's wrong and how to fix it
 - Documentation completeness
 - Test coverage
+
+Expect honest, no-nonsense reviews that get straight to the point.
 
 ## Configuration
 
@@ -61,12 +63,12 @@ To use a different model, edit `.github/workflows/pr-review-by-openhands.yml`:
 ```yaml
 with:
   llm-model: openai/gpt-4  # or any supported model
-  review-style: constructive # or roasted, concise, detailed
+  review-style: roasted # or constructive, concise, detailed
 ```
 
 ### Review Styles
-- `constructive` - Balanced, helpful feedback (default)
-- `roasted` - More critical, direct feedback
+- `roasted` - Critical, direct feedback 🔥 (default)
+- `constructive` - Balanced, helpful feedback
 - `concise` - Brief, to-the-point reviews
 - `detailed` - Comprehensive, thorough reviews
 

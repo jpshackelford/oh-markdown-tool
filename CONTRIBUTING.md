@@ -89,7 +89,8 @@ Thank you for your interest in contributing to oh-markdown-tool! This document p
 This repository uses **OpenHands** for automated code reviews. When you open a PR:
 
 - The bot will automatically review your changes
-- You'll receive constructive feedback on code quality, best practices, and potential issues
+- You'll receive **roasted** 🔥 feedback - direct, critical, and honest
+- Expect no-nonsense reviews on code quality, best practices, and potential issues
 - Reviews typically complete within a few minutes
 
 **Trigger a review manually:**
