@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.2.0](https://github.com/jpshackelford/oh-markdown-tool/compare/v0.1.0...v0.2.0) (2026-07-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* Package now requires Python >=3.12 (previously unspecified). Tool integration moved to optional [openhands] extra - users must install "oh-markdown-tool[openhands]" to use with OpenHands agents.
+
+### Features
+
+* decouple core library from openhands-sdk integration ([0e07468](https://github.com/jpshackelford/oh-markdown-tool/commit/0e0746856837a6b2a9b04d353ddf0c750f9a3b59))
+* decouple core library from openhands-sdk integration ([#6](https://github.com/jpshackelford/oh-markdown-tool/issues/6)) ([0e07468](https://github.com/jpshackelford/oh-markdown-tool/commit/0e0746856837a6b2a9b04d353ddf0c750f9a3b59))
+
+
+### Bug Fixes
+
+* add missing llm-api-key parameter to PR review workflow ([8635726](https://github.com/jpshackelford/oh-markdown-tool/commit/8635726112e37a1b11d3f198562aebc47f40bae1))
+* align PR review bot settings with ohtv repository ([0adc3b1](https://github.com/jpshackelford/oh-markdown-tool/commit/0adc3b14465a1865d7fab424c0ee23b36363c8d1))
+* make lint/test jobs run (but skip work) for Release Please PRs ([8375729](https://github.com/jpshackelford/oh-markdown-tool/commit/83757293815d9d10319ddd685ab8cfb7c999cdd2))
+* make Release Please workflow publish to PyPI directly ([e000eb7](https://github.com/jpshackelford/oh-markdown-tool/commit/e000eb723e9e87cb037787340690fef79dbc4743))
+* use LLM_API_KEY secret for PR review workflow ([4e11c49](https://github.com/jpshackelford/oh-markdown-tool/commit/4e11c4996bf5aef8211d06b104572d67e127b15e))
+
 ## 0.1.0 (2026-07-06)
 
 
