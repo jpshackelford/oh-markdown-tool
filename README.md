@@ -1,8 +1,8 @@
 # OpenHands Markdown Document Tool
 
 [![CI](https://github.com/jpshackelford/oh-markdown-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/jpshackelford/oh-markdown-tool/actions/workflows/ci.yml)
-[![PyPI version](https://badge.fury.io/py/oh-markdown-tool.svg)](https://badge.fury.io/py/oh-markdown-tool)
-[![Python versions](https://img.shields.io/pypi/pyversions/oh-markdown-tool.svg)](https://pypi.org/project/oh-markdown-tool/)
+[![PyPI version](https://img.shields.io/pypi/v/oh-markdown-tool)](https://pypi.org/project/oh-markdown-tool/)
+[![Python versions](https://img.shields.io/pypi/pyversions/oh-markdown-tool)](https://pypi.org/project/oh-markdown-tool/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A comprehensive tool for structural editing and formatting of markdown documents, designed for use with [OpenHands](https://github.com/All-Hands-AI/OpenHands) AI agents.
