@@ -1,0 +1,44 @@
+name: Agent Evals (manual)
+
+# End-to-end evals that run a real LLM agent equipped with the markdown tool
+# against natural-language editing instructions. These cost money and are
+# non-deterministic, so they are NOT part of regular CI — trigger them manually.
+on:
+  workflow_dispatch:
+    inputs:
+      pytest_filter:
+        description: "Optional pytest -k expression to run a subset of evals"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  agent-eval:
+    name: Agent Evals
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "latest"
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Create virtual environment
+        run: uv venv
+
+      - name: Install dependencies
+        run: uv pip install -e ".[dev,openhands]"
+
+      - name: Run agent evals
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          OPENHANDS_SUPPRESS_BANNER: "1"
+        run: |
+          uv run pytest tests -m agent_eval --no-cov -p no:cacheprovider \
+            ${{ inputs.pytest_filter && format('-k "{0}"', inputs.pytest_filter) || '' }}

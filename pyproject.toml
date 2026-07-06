@@ -90,10 +90,16 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
+markers = [
+    "agent_eval: end-to-end LLM agent evals (manual, cost money, need LLM_API_KEY)",
+]
+# Exclude agent evals from the default run; opt in with `-m agent_eval`.
 addopts = [
     "-v",
     "--strict-markers",
     "--tb=short",
+    "-m",
+    "not agent_eval",
 ]
 
 [tool.coverage.run]

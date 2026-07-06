@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Literal
 
 try:
+    from openhands.sdk.llm import TextContent
     from openhands.sdk.tool import (
         Action,
         Observation,
@@ -224,6 +225,21 @@ class MarkdownObservation(Observation):
     issues_remaining: int | None = Field(
         default=None, description="Number of issues that couldn't be auto-fixed."
     )
+
+    @property
+    def to_llm_content(self) -> list[TextContent]:
+        """Agent-facing content for this observation.
+
+        Successful commands only populate structured fields, leaving ``content``
+        empty. Returning empty content leaves the agent with no feedback (it cannot
+        tell whether the command did anything) and trips an empty-message edge case
+        in the prompt-caching path of some LLM clients. So surface the same concise
+        summary shown in the UI. Errors already carry a descriptive message in
+        ``content`` (via ``from_text``), so defer to the base implementation for them.
+        """
+        if self.is_error or self.content:
+            return super().to_llm_content
+        return [TextContent(text=self.visualize.plain.strip())]
 
     @property
     def visualize(self) -> Text:
