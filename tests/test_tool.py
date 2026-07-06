@@ -1256,3 +1256,53 @@ Clean paragraph.
         text = obs.visualize
         assert "Fixed 3" in str(text)
         assert "1 remaining" in str(text)
+
+
+class TestObservationLlmContent:
+    """Every observation must expose non-empty agent-facing content.
+
+    An empty ``to_llm_content`` leaves the agent with no feedback and trips an
+    empty-message edge case in the prompt-caching path of some LLM clients.
+    """
+
+    def setup_method(self):
+        self.temp_dir = Path(tempfile.mkdtemp())
+        self.executor = MarkdownExecutor(self.temp_dir)
+
+    def teardown_method(self):
+        import shutil
+
+        shutil.rmtree(self.temp_dir)
+
+    def test_all_commands_return_non_empty_content(self):
+        content = (
+            "# Project Documentation\n\n"
+            "## 5. Introduction\n\nIntro.\n\n"
+            "### 5.2 Background\n\nBg.\n\n"
+            "## 10. Methods\n\nMethods.\n\n"
+            "## 3. Results\n\nResults.\n"
+        )
+        commands = [
+            "overview",
+            "validate",
+            "renumber",
+            "toc_update",
+            "toc_remove",
+            "lint",
+            "fix",
+            "cleanup",
+        ]
+        for command in commands:
+            (self.temp_dir / "test.md").write_text(content)
+            observation = self.executor.execute(MarkdownAction(command=command, file="test.md"))
+            llm_content = observation.to_llm_content
+            assert llm_content, f"{command} returned empty to_llm_content"
+            assert "".join(item.text for item in llm_content).strip(), (
+                f"{command} returned blank to_llm_content"
+            )
+
+    def test_error_observation_preserves_message(self):
+        observation = self.executor.execute(MarkdownAction(command="overview", file="missing.md"))
+        assert observation.is_error is True
+        text = "".join(item.text for item in observation.to_llm_content)
+        assert "missing.md" in text
