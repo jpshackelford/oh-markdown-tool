@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.2](https://github.com/jpshackelford/oh-markdown-tool/compare/v0.2.1...v0.2.2) (2026-07-06)
+
+
+### Bug Fixes
+
+* don't try to create GitHub release (Release Please already does) ([9ed4a0d](https://github.com/jpshackelford/oh-markdown-tool/commit/9ed4a0d8ba5d93d56c8c3a78221a500415208f59))
+* make release-please trigger release workflow explicitly ([3502c8b](https://github.com/jpshackelford/oh-markdown-tool/commit/3502c8b9cf6bd746b16f7e3122aa30ca765c5380))
+
 ## [0.2.1](https://github.com/jpshackelford/oh-markdown-tool/compare/v0.2.0...v0.2.1) (2026-07-06)
 
 

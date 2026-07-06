@@ -1,6 +1,6 @@
 [project]
 name = "oh-markdown-tool"
-version = "0.2.1"
+version = "0.2.2"
 description = "OpenHands Markdown Document Tool - Structural editing and formatting for markdown documents"
 readme = "README.md"
 requires-python = ">=3.12"
