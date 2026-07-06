@@ -12,96 +12,61 @@ concurrency:
 jobs:
   lint:
     name: Lint
+    # Skip CI on Release Please PRs (only version bumps, already tested)
+    if: |
+      github.event_name == 'push' ||
+      (github.event.pull_request.user.login != 'github-actions[bot]' ||
+       !startsWith(github.event.pull_request.head.ref, 'release-please--'))
     runs-on: ubuntu-latest
     steps:
-      # Skip lint on Release Please PRs (only version bumps, already tested)
-      - name: Check if should skip
-        id: should_skip
-        run: |
-          if [[ "${{ github.event_name }}" == "push" ]]; then
-            echo "skip=false" >> $GITHUB_OUTPUT
-          elif [[ "${{ github.event.pull_request.user.login }}" == "github-actions[bot]" ]] && [[ "${{ github.event.pull_request.head.ref }}" == release-please--* ]]; then
-            echo "skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
-          fi
-      
-      - name: Skip lint for Release Please
-        if: steps.should_skip.outputs.skip == 'true'
-        run: echo "Skipping lint for Release Please PR (version bump only)"
-      
       - uses: actions/checkout@v7
-        if: steps.should_skip.outputs.skip == 'false'
 
       - name: Install uv
-        if: steps.should_skip.outputs.skip == 'false'
         uses: astral-sh/setup-uv@v7
         with:
           version: "latest"
 
       - name: Set up Python
-        if: steps.should_skip.outputs.skip == 'false'
         run: uv python install 3.12
 
       - name: Create virtual environment
-        if: steps.should_skip.outputs.skip == 'false'
         run: uv venv
 
       - name: Install dependencies
-        if: steps.should_skip.outputs.skip == 'false'
         run: uv pip install -e ".[dev,openhands]"
 
       - name: Run ruff linter
-        if: steps.should_skip.outputs.skip == 'false'
         run: uv run ruff check src tests
 
       - name: Run ruff formatter check
-        if: steps.should_skip.outputs.skip == 'false'
         run: uv run ruff format --check src tests
 
   test:
     name: Test
+    # Skip CI on Release Please PRs (only version bumps, already tested)
+    if: |
+      github.event_name == 'push' ||
+      (github.event.pull_request.user.login != 'github-actions[bot]' ||
+       !startsWith(github.event.pull_request.head.ref, 'release-please--'))
     runs-on: ubuntu-latest
     steps:
-      # Skip tests on Release Please PRs (only version bumps, already tested)
-      - name: Check if should skip
-        id: should_skip
-        run: |
-          if [[ "${{ github.event_name }}" == "push" ]]; then
-            echo "skip=false" >> $GITHUB_OUTPUT
-          elif [[ "${{ github.event.pull_request.user.login }}" == "github-actions[bot]" ]] && [[ "${{ github.event.pull_request.head.ref }}" == release-please--* ]]; then
-            echo "skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
-          fi
-      
-      - name: Skip tests for Release Please
-        if: steps.should_skip.outputs.skip == 'true'
-        run: echo "Skipping tests for Release Please PR (version bump only)"
-      
       - uses: actions/checkout@v7
-        if: steps.should_skip.outputs.skip == 'false'
 
       - name: Install uv
-        if: steps.should_skip.outputs.skip == 'false'
         uses: astral-sh/setup-uv@v7
         with:
           version: "latest"
 
       - name: Set up Python
-        if: steps.should_skip.outputs.skip == 'false'
         run: uv python install 3.12
 
       - name: Create virtual environment
-        if: steps.should_skip.outputs.skip == 'false'
         run: uv venv
 
       - name: Install dependencies
-        if: steps.should_skip.outputs.skip == 'false'
         run: uv pip install -e ".[dev,openhands]"
 
       - name: Run tests with coverage
-        if: steps.should_skip.outputs.skip == 'false'
         run: |
           uv run pytest tests \
             --cov=oh_markdown_tool \
@@ -112,7 +77,6 @@ jobs:
             -v
 
       - name: Upload coverage HTML report
-        if: steps.should_skip.outputs.skip == 'false'
         uses: actions/upload-artifact@v7
         with:
           name: coverage-report
@@ -120,7 +84,6 @@ jobs:
           retention-days: 14
 
       - name: Upload coverage to Codecov
-        if: steps.should_skip.outputs.skip == 'false'
         uses: codecov/codecov-action@v7
         with:
           files: ./coverage.xml
@@ -129,7 +92,6 @@ jobs:
           fail_ci_if_error: false
 
       - name: Coverage Summary
-        if: steps.should_skip.outputs.skip == 'false'
         run: |
           echo "## Coverage Report" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
