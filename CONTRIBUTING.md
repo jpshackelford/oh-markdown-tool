@@ -84,6 +84,21 @@ Thank you for your interest in contributing to oh-markdown-tool! This document p
 
    Then create a pull request on GitHub.
 
+### Automated PR Review
+
+This repository uses **OpenHands** for automated code reviews. When you open a PR:
+
+- The bot will automatically review your changes
+- You'll receive constructive feedback on code quality, best practices, and potential issues
+- Reviews typically complete within a few minutes
+
+**Trigger a review manually:**
+- Add the `review-this` label to your PR
+- Request `openhands-agent` as a reviewer
+- Mark a draft PR as "Ready for review"
+
+See [.github/OPENHANDS_REVIEW.md](.github/OPENHANDS_REVIEW.md) for more details.
+
 ## Code Quality Standards
 
 ### Testing

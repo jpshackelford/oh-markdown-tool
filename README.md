@@ -200,3 +200,16 @@ Originally developed as part of the [lxa](https://github.com/jpshackelford/lxa) 
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+### Automated Code Review
+
+This repository uses [OpenHands](https://github.com/All-Hands-AI/OpenHands) for automated PR reviews. When you open a PR:
+- ✅ Automated review with constructive feedback
+- ✅ Code quality suggestions
+- ✅ Best practices recommendations
+
+See [.github/OPENHANDS_REVIEW.md](.github/OPENHANDS_REVIEW.md) for details.
+
+### Development Guidelines
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines.
